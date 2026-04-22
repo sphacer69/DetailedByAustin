@@ -133,10 +133,17 @@ body{background:#0A0A0C;color:#fff;font-family:'Manrope',sans-serif;overflow-x:h
 #pricing-wrap::before{content:'';position:absolute;inset:0;background:rgba(5,5,7,.96);}
 #pricing-wrap .sec{position:relative;z-index:1;}
 .pkg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.pkg{background:var(--surf);border:1px solid var(--bdr);padding:28px 26px;display:flex;flex-direction:column;transition:border-color .35s,transform .35s,box-shadow .35s;position:relative;overflow:hidden;}
+.pkg-grid.two{grid-template-columns:repeat(3,1fr);}
+.pkg{background:var(--surf);border:1px solid var(--bdr);padding:28px 26px;display:flex;flex-direction:column;transition:border-color .35s,transform .35s,box-shadow .35s;position:relative;overflow:hidden;cursor:pointer;outline:none;-webkit-tap-highlight-color:rgba(255,59,48,.15);}
+.pkg:focus-visible{border-color:var(--red);box-shadow:0 0 0 2px rgba(255,59,48,.25);}
 .pkg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,59,48,.04) 0%,transparent 60%);opacity:0;transition:opacity .35s;}
-.pkg:hover{transform:translateY(-4px);box-shadow:0 18px 55px rgba(0,0,0,.55);}
+.pkg:hover{transform:translateY(-4px);box-shadow:0 18px 55px rgba(0,0,0,.55);border-color:rgba(255,59,48,.35);}
 .pkg:hover::after{opacity:1;}
+.pkg:active{transform:translateY(-2px);}
+.pkg-cta{width:100%;padding:13px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-align:center;transition:background .25s;pointer-events:none;display:flex;align-items:center;justify-content:center;gap:8px;}
+.pkg-cta::after{content:'\2192';transition:transform .25s;}
+.pkg:hover .pkg-cta{background:var(--red2);}
+.pkg:hover .pkg-cta::after{transform:translateX(4px);}
 .pkg.feat{border-color:rgba(255,59,48,.4);box-shadow:0 0 50px rgba(255,59,48,.1);}
 .pkg.feat:hover{box-shadow:0 20px 70px rgba(255,59,48,.2);}
 .pkg-pop{font-size:9px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--red);margin-bottom:8px;animation:glow 3s infinite;}
@@ -418,35 +425,105 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
   .api-endpoint-grid{grid-template-columns:1fr !important;}
   .nano-benefits{grid-template-columns:repeat(2,1fr);}
   .nano-pkg-flag{font-size:11px;letter-spacing:2px;padding:5px 12px;}
-  .nav-inner{padding:0 20px;height:64px;}
+  .nav-inner{padding:0 18px;height:60px;}
+  .logo{font-size:22px;letter-spacing:.5px;}
   .nav-links{display:none;}
   .hamburger{display:block;}
-  .sec{padding:48px 20px;}
-  .hero-content{padding:110px 20px 64px;}
+  .sec{padding:44px 18px;}
+  .hero-content{padding:100px 18px 48px;}
+  .hero-h1{font-size:clamp(58px,13vw,84px)!important;margin-bottom:22px;}
+  .hero-sub{font-size:15px;margin-bottom:32px;max-width:100%;}
+  .hero-btns{flex-direction:column;align-items:stretch;gap:10px;}
+  .hero-btns .btn-r,.hero-btns .btn-outline{text-align:center;padding:14px 24px;}
   .hero-stats{display:none;}
   .hero-scroll{display:none;}
-  .svc-grid{grid-template-columns:1fr;}
+  .sec-h{font-size:clamp(32px,9vw,44px);margin-bottom:24px;}
+  .svc-grid{grid-template-columns:1fr;gap:12px;}
+  .svc-img-wrap{height:180px;}
+  .svc-body{padding:16px 18px 18px;}
   .svc.nano-svc{flex-direction:column;}
-  .svc.nano-svc .svc-img-wrap{width:100%;height:180px;}
-  .pkg-grid{grid-template-columns:1fr;}
+  .svc.nano-svc .svc-img-wrap{width:100%;height:200px;}
+  .svc.nano-svc .svc-body{padding:22px 20px;}
+  .svc.nano-svc .nano-feat-list{grid-template-columns:1fr;gap:6px;}
+  .svc.nano-svc .svc-name{font-size:22px!important;letter-spacing:2px!important;}
+  .pkg-grid,.pkg-grid.two{grid-template-columns:1fr!important;gap:12px;}
+  .pkg{padding:22px 20px;}
+  .pkg-name{font-size:24px;}
+  .pkg-price{font-size:42px;margin-bottom:14px;}
+  .pkg-list{gap:7px;margin-bottom:16px;}
+  .nano-pkg{grid-template-columns:1fr!important;padding:24px 20px;gap:20px;}
+  .nano-pkg-price{font-size:46px;}
+  .nano-pkg-flag{font-size:10px;letter-spacing:1.5px;padding:4px 10px;}
   .addons-grid{grid-template-columns:1fr;}
-  .testi-grid{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr;}
+  .addon{padding:16px 18px;}
+  .addon-name{font-size:13.5px;}
+  .addon-price{font-size:24px;}
+  .testi-grid{grid-template-columns:1fr;gap:12px;}
+  .testi{padding:22px 20px;}
+  .contact-grid{grid-template-columns:1fr;gap:32px;}
+  .contact-items{gap:18px;}
   .cal-wrap{grid-template-columns:1fr;}
-  .form-box{grid-template-columns:1fr;padding:18px;}
+  .form-box{grid-template-columns:1fr;padding:18px;gap:12px;}
   .fg.full{grid-column:span 1;}
   .fsec{grid-column:span 1;}
-  .confirm-box{grid-template-columns:1fr;padding:18px;}
+  .confirm-box{grid-template-columns:1fr;padding:18px;gap:12px;}
   .ci2-div{grid-column:span 1;}
-  .svc-opt-grid{grid-template-columns:1fr;}
-  footer{padding:24px 20px;flex-direction:column;text-align:center;}
-  .bk-body{padding:22px 16px;}
+  .cf-items-list{grid-column:span 1;}
+  .cf-total-row{grid-column:span 1!important;}
+  .svc-opt-grid{grid-template-columns:1fr;gap:8px;}
+  .svc-opt{padding:13px 14px;}
+  footer{padding:24px 18px;flex-direction:column;text-align:center;}
+  #booking-overlay{padding:0;}
+  .bk-modal{max-width:100%;min-height:100%;}
+  .bk-header{padding:0 18px;height:52px;}
+  .bk-logo{font-size:16px;}
+  .bk-close{font-size:12px;padding:4px 10px;}
+  .bk-body{padding:22px 16px 100px;}
+  .steps-bar{gap:2px;margin-bottom:26px;}
+  .si{padding:6px 5px;font-size:9px;letter-spacing:.12em;}
+  .si svg{width:14px;height:14px;}
+  .si span{display:none;}
+  .si.active span{display:inline;}
+  .sl{width:14px;}
+  .sp-h{font-size:26px;}
+  .sp-sub{font-size:12.5px;margin-bottom:18px;}
+  .bk-total-bar{position:sticky;bottom:0;margin:14px -16px 0;padding:14px 18px;border-left:none;border-right:none;background:rgba(18,18,21,.98);backdrop-filter:blur(12px);z-index:5;}
+  .step-nav{position:sticky;bottom:0;background:rgba(10,10,12,.98);backdrop-filter:blur(12px);padding:14px 16px;margin:18px -16px -30px;border-top:1px solid var(--bdr);z-index:6;}
+  .btn-next{padding:12px 20px;font-size:10.5px;}
+  .btn-prev{font-size:10px;}
   .stats-grid{grid-template-columns:1fr 1fr;}
   .adm-body{padding:20px 16px;}
-  .pkg-grid.two{grid-template-columns:1fr;}
-  .nano-pkg{padding:24px;}
+  .adm-nav{padding:0 18px;height:52px;}
+  .adm-logo{font-size:15px;}
+  .adm-logo span{display:none;}
+  .adm-tabs{gap:0;margin-bottom:22px;}
+  .adm-tab{padding:9px 12px;font-size:10px;letter-spacing:.12em;}
+  .s-card{padding:20px;}
+  .s-card h3{font-size:18px;margin-bottom:14px;}
   .days-check-grid{grid-template-columns:repeat(4,1fr);}
-  #promo-float{bottom:16px;left:16px;}
+  .day-check{padding:7px 6px;}
+  .day-check span{font-size:10px;}
+  #promo-float{bottom:14px;left:14px;}
+  #promo-float button{padding:10px 16px;font-size:15px;}
+  .promo-box{max-width:100%;}
+  .promo-body{padding:22px 22px 24px;}
+  .promo-h{font-size:28px;}
+  .succ-box{padding:36px 26px;}
+  .succ-h{font-size:30px;}
+}
+@media(max-width:420px){
+  .sec-h{font-size:clamp(28px,10vw,38px);}
+  .hero-h1{font-size:clamp(52px,14vw,72px)!important;}
+  .hero-eyebrow{font-size:10px;letter-spacing:.25em;}
+  .pkg-price{font-size:38px;}
+  .pkg-name{font-size:22px;}
+  .nano-pkg-price{font-size:40px;}
+  .svc-name{font-size:20px;letter-spacing:1.5px;}
+  .bk-body{padding:18px 14px 100px;}
+  .form-box{padding:14px;}
+  .confirm-box{padding:14px;}
+  .bk-total-bar .bk-total-val{font-size:26px;}
+  .cf-total-row .cf-total-val{font-size:32px;}
 }
 </style>
 </head>
@@ -573,7 +650,7 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
       </div>
 
       <div class="svc nano-svc reveal" style="transition-delay:.35s">
-        <div class="svc-img-wrap" style="width:400px;flex-shrink:0;height:auto;"><img class="svc-img" src="https://images.pexels.com/photos/35149468/pexels-photo-35149468.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Nano ceramic coating" style="height:100%;min-height:300px;"></div>
+        <div class="svc-img-wrap"><img class="svc-img" src="https://images.pexels.com/photos/35149468/pexels-photo-35149468.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Nano ceramic coating"></div>
         <div class="svc-body">
           <div class="nano-badge2">&#128737; Nano Ceramic</div>
           <div class="svc-name" style="font-size:26px;letter-spacing:3px">Nano Armor Protection Package</div>
@@ -599,47 +676,47 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
   <div class="sec">
     <div class="reveal"><p class="eyebrow">Packages</p><h2 class="sec-h">Choose Your <span class="acc">Package</span></h2></div>
     <div class="pkg-grid reveal">
-      <div class="pkg">
+      <div class="pkg" onclick="openBooking('exterior')" role="button" tabindex="0">
         <div class="pkg-name">Exterior</div><div class="pkg-blurb">Quick refresh for your car's exterior.</div>
         <div class="pkg-price"><sup>$</sup>80</div>
         <ul class="pkg-list"><li>Exterior wash &amp; dry</li><li>Wheels &amp; tires cleaned</li><li>Tire shine applied</li><li>1–2 hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('exterior')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
-      <div class="pkg">
+      <div class="pkg" onclick="openBooking('interior')" role="button" tabindex="0">
         <div class="pkg-name">Interior</div><div class="pkg-blurb">Deep clean inside your vehicle.</div>
         <div class="pkg-price"><sup>$</sup>200</div>
         <ul class="pkg-list"><li>Full vacuum</li><li>Plastics &amp; leathers wiped</li><li>Windows cleaned</li><li>Floor mats cleaned</li><li>2–3 hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('interior')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
-      <div class="pkg feat">
+      <div class="pkg feat" onclick="openBooking('combo')" role="button" tabindex="0">
         <div class="pkg-pop">&#9733; Most Popular</div>
         <div class="pkg-name">Combo</div><div class="pkg-blurb">Best value for regular maintenance.</div>
         <div class="pkg-price"><sup>$</sup>300</div>
         <ul class="pkg-list"><li>Deeper full interior detail</li><li>Full exterior detail</li><li>Best value package</li><li>4–5 hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('combo')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
     </div>
-    <div class="pkg-grid two reveal" style="margin-top:16px;grid-template-columns:repeat(3,1fr)">
-      <div class="pkg">
+    <div class="pkg-grid two reveal" style="margin-top:16px">
+      <div class="pkg" onclick="openBooking('polish')" role="button" tabindex="0">
         <div class="pkg-name">Polish</div><div class="pkg-blurb">Restore your paint's true depth and shine.</div>
         <div class="pkg-price"><sup>$</sup>300</div>
         <ul class="pkg-list"><li>Machine polish application</li><li>Removes light swirls &amp; scratches</li><li>Eliminates oxidation</li><li>Deep mirror gloss finish</li><li>2–4 hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('polish')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
-      <div class="pkg">
+      <div class="pkg" onclick="openBooking('diamond')" role="button" tabindex="0">
         <div class="pkg-pop">&#9830; Premium Sealant</div>
         <div class="pkg-name">Diamond Fusion</div><div class="pkg-blurb">Next-level hydrophobic paint &amp; glass sealant.</div>
         <div class="pkg-price"><sup>$</sup>150</div>
         <ul class="pkg-list"><li>Ultra-slick hydrophobic barrier</li><li>Repels water, grime &amp; UV</li><li>2–3 hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('diamond')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
-      <div class="pkg">
+      <div class="pkg" onclick="openBooking('detail')" role="button" tabindex="0">
         <div class="pkg-name">Full Detail</div><div class="pkg-blurb">Complete treatment, serious results.</div>
         <div class="pkg-price"><sup>$</sup>600</div>
         <ul class="pkg-list"><li>Intense interior clean</li><li>Intense exterior clean</li><li>Paint decontamination</li><li>Polish included</li><li>Any extra service required</li><li>6+ hours</li></ul>
-        <button class="btn-r" style="width:100%;padding:14px" onclick="openBooking('detail')">Book This Package</button>
+        <div class="btn-r pkg-cta">Book This Package</div>
       </div>
-      <div class="nano-pkg reveal">
+      <div class="nano-pkg reveal" onclick="openBooking('nano')" role="button" tabindex="0" style="cursor:pointer">
         <div class="nano-pkg-flag">&#128737; Top Pick — Long-Term Protection</div>
         <div style="display:flex;flex-direction:column;gap:10px;position:relative;z-index:1;">
           <div class="nano-badge2">Nano Ceramic</div>
@@ -656,7 +733,7 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
             <div class="nano-benefit"><span class="nano-benefit-icon">&#10024;</span><div class="nano-benefit-title">Deeper Gloss</div><div class="nano-benefit-desc">Richer colour, mirror finish.</div></div>
             <div class="nano-benefit"><span class="nano-benefit-icon">&#128663;</span><div class="nano-benefit-title">Easy Wash</div><div class="nano-benefit-desc">Less scrubbing, faster cleans.</div></div>
           </div>
-          <button class="btn-r" onclick="openBooking('nano')" style="padding:13px 32px;align-self:flex-start;margin-top:4px">Book Nano Armor &nbsp;&#8594;</button>
+          <button class="btn-r" onclick="event.stopPropagation();openBooking('nano')" style="padding:13px 32px;align-self:flex-start;margin-top:4px">Book Nano Armor &nbsp;&#8594;</button>
         </div>
       </div>
     </div>
@@ -1138,6 +1215,14 @@ window.addEventListener('scroll', () => document.getElementById('navbar').classL
 window.addEventListener('load', () => { document.getElementById('hero').classList.add('loaded'); });
 function toggleMenu() { document.getElementById('mob-menu').classList.toggle('open'); }
 function closeMob() { document.getElementById('mob-menu').classList.remove('open'); }
+
+// Keyboard support for role="button" package cards
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.pkg[role="button"],.nano-pkg[role="button"]')) {
+    e.preventDefault();
+    e.target.click();
+  }
+});
 
 // ── SCROLL REVEAL ──
 const ro = new IntersectionObserver(entries => entries.forEach((e, i) => {
