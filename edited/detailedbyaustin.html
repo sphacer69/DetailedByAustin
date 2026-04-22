@@ -246,7 +246,7 @@ footer{padding:36px 48px;border-top:1px solid rgba(255,255,255,.07);display:flex
 .p-code-note{font-size:12px;color:var(--mut);line-height:1.6;}
 
 /* ── BOOKING ── */
-#booking-overlay{display:none;position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);overflow-y:auto;padding:40px 16px;}
+#booking-overlay{display:none;position:fixed;inset:0;z-index:560;background:rgba(0,0,0,.88);backdrop-filter:blur(12px);overflow-y:auto;padding:40px 16px;}
 #booking-overlay.open{display:flex;align-items:flex-start;justify-content:center;animation:fadeIn .25s ease;}
 .bk-modal{background:var(--bg);border:1px solid var(--bdr);width:100%;max-width:740px;animation:popIn .4s cubic-bezier(.16,1,.3,1) both;}
 .bk-header{background:rgba(0,0,0,.7);backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.07);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
@@ -314,6 +314,23 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
 .btn-next{display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;border:none;cursor:pointer;padding:13px 28px;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;transition:all .25s;font-family:'Manrope';}
 .btn-next:hover{background:var(--red2);transform:translateY(-1px);}
 .btn-next:disabled{background:#2a2a2a;color:#52525B;cursor:not-allowed;transform:none;}
+
+/* Booking running total + addon multiselect */
+.svc-opt .svc-opt-name::before{content:'+ ';color:#3F3F46;font-weight:800;margin-right:2px;display:none;}
+.svc-opt.sel .svc-opt-name::before{display:inline;color:var(--red);content:'✓ ';}
+.bk-total-bar{display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);padding:14px 18px;margin-top:14px;}
+.bk-total-bar .bk-total-lbl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#52525B;}
+.bk-total-bar .bk-total-val{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--red);line-height:1;}
+.bk-total-bar .bk-total-count{font-size:11px;color:var(--mut);margin-top:3px;}
+.cf-items-list{grid-column:span 2;display:flex;flex-direction:column;gap:6px;}
+.cf-item-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.06);font-size:13px;}
+.cf-item-row:last-child{border-bottom:none;}
+.cf-item-row .cf-item-name{color:#D4D4D8;}
+.cf-item-row .cf-item-name .cf-item-tag{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#52525B;margin-right:8px;}
+.cf-item-row .cf-item-price{color:#fff;font-family:'Bebas Neue',sans-serif;font-size:18px;}
+.cf-total-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0 4px;margin-top:6px;border-top:1px solid var(--bdr);}
+.cf-total-row .cf-total-lbl{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#52525B;}
+.cf-total-row .cf-total-val{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--red);line-height:1;}
 
 /* ── SUCCESS ── */
 #success-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(5,5,7,.97);align-items:center;justify-content:center;}
@@ -800,7 +817,7 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
         <div class="si" id="si3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg><span>Confirm</span></div>
       </div>
       <div class="step-panel active" id="sp0">
-        <h2 class="sp-h">Select Your Service</h2><p class="sp-sub">Choose from packages or individual services.</p>
+        <h2 class="sp-h">Select Your Services</h2><p class="sp-sub">Pick one or more packages, individual services and add-ons.</p>
         <div class="svc-opt-label">Packages</div>
         <div class="svc-opt-grid">
           <button class="svc-opt" data-id="exterior" data-price="80" data-name="Exterior Wash" onclick="pickSvc(this)"><div class="svc-opt-name">Exterior Wash</div><div class="svc-opt-row"><span class="svc-opt-dur">1–2 hrs</span><span class="svc-opt-price">$80</span></div></button>
@@ -813,6 +830,19 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
           <button class="svc-opt" data-id="polish" data-price="300" data-name="Polish" onclick="pickSvc(this)"><div class="svc-opt-name">Polish</div><div class="svc-opt-row"><span class="svc-opt-dur">2–4 hrs</span><span class="svc-opt-price">$300</span></div></button>
           <button class="svc-opt" data-id="diamond" data-price="150" data-name="Diamond Fusion" onclick="pickSvc(this)"><div class="svc-opt-name">Diamond Fusion</div><div class="svc-opt-row"><span class="svc-opt-dur">2–3 hrs</span><span class="svc-opt-price">$150</span></div></button>
           <button class="svc-opt" data-id="nano" data-price="1250" data-name="Nano Armor Ceramic" onclick="pickSvc(this)"><div class="svc-opt-name">Nano Armor Ceramic</div><div class="svc-opt-row"><span class="svc-opt-dur">4–6 yr protection</span><span class="svc-opt-price">$1,250</span></div></button>
+        </div>
+        <div class="svc-opt-label">Add-Ons (Optional)</div>
+        <div class="svc-opt-grid" id="addon-opts-grid">
+          <button class="svc-opt addon-opt" data-id="engine" data-price="25" data-name="Engine Bay Cleaning" onclick="pickAddon(this)"><div class="svc-opt-name">Engine Bay Cleaning</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$25</span></div></button>
+          <button class="svc-opt addon-opt" data-id="pet" data-price="20" data-name="Pet Hair Removal" onclick="pickAddon(this)"><div class="svc-opt-name">Pet Hair Removal</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$20</span></div></button>
+          <button class="svc-opt addon-opt" data-id="salt" data-price="25" data-name="Heavy Salt Stain Removal" onclick="pickAddon(this)"><div class="svc-opt-name">Heavy Salt Stain Removal</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$25</span></div></button>
+          <button class="svc-opt addon-opt" data-id="clay" data-price="50" data-name="Exterior Clay Bar" onclick="pickAddon(this)"><div class="svc-opt-name">Exterior Clay Bar</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$50</span></div></button>
+          <button class="svc-opt addon-opt" data-id="steam" data-price="50" data-name="Steam Clean" onclick="pickAddon(this)"><div class="svc-opt-name">Steam Clean</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$50</span></div></button>
+          <button class="svc-opt addon-opt" data-id="trim" data-price="15" data-name="Plastic &amp; Trim Dressings" onclick="pickAddon(this)"><div class="svc-opt-name">Plastic &amp; Trim Dressings</div><div class="svc-opt-row"><span class="svc-opt-dur">Add-on</span><span class="svc-opt-price">$15</span></div></button>
+        </div>
+        <div class="bk-total-bar">
+          <div><div class="bk-total-lbl">Running Total</div><div class="bk-total-count" id="bk-total-count">No items selected</div></div>
+          <div class="bk-total-val" id="bk-total-val">$0</div>
         </div>
       </div>
       <div class="step-panel" id="sp1">
@@ -847,14 +877,14 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
       <div class="step-panel" id="sp3">
         <h2 class="sp-h">Confirm &amp; Pay</h2><p class="sp-sub">Review your booking details before payment.</p>
         <div class="confirm-box">
-          <div><div class="ci2-lbl">Service</div><div class="ci2-val" id="cf-svc">—</div></div>
-          <div><div class="ci2-lbl">Price</div><div class="ci2-price" id="cf-price">—</div></div>
           <div><div class="ci2-lbl">Date</div><div class="ci2-val" id="cf-date">—</div></div>
           <div><div class="ci2-lbl">Time</div><div class="ci2-val" id="cf-time">—</div></div>
           <div><div class="ci2-lbl">Customer</div><div class="ci2-val" id="cf-cust">—</div></div>
           <div><div class="ci2-lbl">Vehicle</div><div class="ci2-val" id="cf-veh">—</div></div>
           <div class="ci2-div"></div>
-          <div style="grid-column:span 2"><div id="cf-promo-row" style="display:none;padding:10px 14px;background:rgba(255,59,48,.07);border:1px solid rgba(255,59,48,.25);margin-bottom:12px;font-size:13px;color:var(--red)">🎉 Promo <strong id="cf-promo-code"></strong> applied — 10% off!</div><p class="ci2-note">You'll be redirected to secure payment after confirming.</p></div>
+          <div class="cf-items-list" id="cf-items-list"></div>
+          <div class="cf-total-row" style="grid-column:span 2"><div class="cf-total-lbl">Total</div><div class="cf-total-val" id="cf-total">$0</div></div>
+          <div style="grid-column:span 2"><div id="cf-promo-row" style="display:none;padding:10px 14px;background:rgba(255,59,48,.07);border:1px solid rgba(255,59,48,.25);margin-bottom:12px;font-size:13px;color:var(--red)">🎉 Promo <strong id="cf-promo-code"></strong> applied — 10% off!</div><p class="ci2-note" id="cf-note">You'll be redirected to secure payment after confirming.</p></div>
         </div>
       </div>
       <div class="step-nav">
@@ -1055,6 +1085,15 @@ input::placeholder,textarea::placeholder{color:#2a2a2a;}
             <button class="s-save" onclick="saveSettings()">Save Social Links</button>
           </div>
           <div class="s-card">
+            <h3>Stripe Payment</h3>
+            <p style="font-size:12px;color:var(--mut);margin-bottom:16px;line-height:1.6">Redirect customers to your Stripe Payment Link after confirming a booking. Their email &amp; booking ID are auto-attached.</p>
+            <div class="s-row"><label>Stripe Checkout</label><select id="s-stripe-on"><option value="0">Disabled</option><option value="1">Enabled</option></select></div>
+            <div class="s-row"><label>Publishable Key (optional)</label><input type="text" id="s-stripe-pk" placeholder="pk_live_..."></div>
+            <div class="s-row"><label>Payment Link URL</label><input type="url" id="s-stripe-link" placeholder="https://buy.stripe.com/..."></div>
+            <p style="font-size:11px;color:#52525B;line-height:1.6;margin-top:2px">Create one in your <a href="https://dashboard.stripe.com/payment-links" target="_blank" style="color:var(--red);text-decoration:none">Stripe dashboard → Payment Links</a>. Enable <em>"Let customers adjust quantity"</em> or use a link matching your service price.</p>
+            <button class="s-save" onclick="saveSettings()">Save Stripe Settings</button>
+          </div>
+          <div class="s-card">
             <h3>Change Password</h3>
             <div class="s-row"><label>Current Password</label><input type="password" id="s-old" placeholder="Current password"></div>
             <div class="s-row"><label>New Password</label><input type="password" id="s-new" placeholder="New password (min 6 chars)"></div>
@@ -1170,16 +1209,27 @@ function copyCode() {
 }
 
 // ── BOOKING ──
-let bkStep = 0, bk = { svc: null, svcName: '', svcPrice: 0, date: null, dateStr: '', time: null };
+let bkStep = 0, bk = { items: [], addons: [], date: null, dateStr: '', time: null };
 let calY, calMo;
 function openBooking(id) {
+  // Always dismiss promo so the booking modal is clickable
+  const promo = document.getElementById('promo-overlay');
+  if (promo) promo.classList.remove('show');
+  sessionStorage.setItem('promo_closed', '1');
   bkStep = 0;
+  // If launching from a package button, reset selections and auto-select that one
+  if (id) {
+    bk.items = [];
+    bk.addons = [];
+    document.querySelectorAll('.svc-opt').forEach(x => x.classList.remove('sel'));
+  }
   updateSteps();
+  updateTotal();
   document.getElementById('booking-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   if (id) {
     const b = document.querySelector(`.svc-opt[data-id="${id}"]`);
-    if (b) pickSvc(b);
+    if (b) { pickSvc(b); }
   }
 }
 function closeBooking() {
@@ -1203,14 +1253,38 @@ function updateSteps() {
 }
 function chkNx() {
   const nx = document.getElementById('bk-next');
-  if (bkStep === 0) nx.disabled = !bk.svc;
+  if (bkStep === 0) nx.disabled = bk.items.length === 0;
   else if (bkStep === 1) nx.disabled = !bk.date || !bk.time;
   else if (bkStep === 2) nx.disabled = !validStep2();
   else nx.disabled = false;
 }
 function nextBk() { if (bkStep === 3) { doSubmit(); return; } bkStep++; updateSteps(); if (bkStep === 1) initCal(); if (bkStep === 3) fillConfirm(); }
 function prevBk() { if (bkStep > 0) { bkStep--; updateSteps(); } }
-function pickSvc(b) { document.querySelectorAll('.svc-opt').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); bk.svc = b.dataset.id; bk.svcName = b.dataset.name; bk.svcPrice = parseInt(b.dataset.price); chkNx(); }
+function computeSubtotal() {
+  return bk.items.reduce((s, x) => s + x.price, 0) + bk.addons.reduce((s, x) => s + x.price, 0);
+}
+function updateTotal() {
+  const subtotal = computeSubtotal();
+  const tv = document.getElementById('bk-total-val');
+  const tc = document.getElementById('bk-total-count');
+  if (tv) tv.textContent = `$${subtotal.toLocaleString()}`;
+  const n = bk.items.length + bk.addons.length;
+  if (tc) tc.textContent = n === 0 ? 'No items selected' : `${bk.items.length} service${bk.items.length===1?'':'s'}${bk.addons.length?` • ${bk.addons.length} add-on${bk.addons.length===1?'':'s'}`:''}`;
+}
+function pickSvc(b) {
+  const id = b.dataset.id;
+  const i = bk.items.findIndex(x => x.id === id);
+  if (i >= 0) { bk.items.splice(i, 1); b.classList.remove('sel'); }
+  else { bk.items.push({ id, name: b.dataset.name, price: parseInt(b.dataset.price) }); b.classList.add('sel'); }
+  updateTotal(); chkNx();
+}
+function pickAddon(b) {
+  const id = b.dataset.id;
+  const i = bk.addons.findIndex(x => x.id === id);
+  if (i >= 0) { bk.addons.splice(i, 1); b.classList.remove('sel'); }
+  else { bk.addons.push({ id, name: b.dataset.name, price: parseInt(b.dataset.price) }); b.classList.add('sel'); }
+  updateTotal(); chkNx();
+}
 
 // calendar
 const TIMES = ['8:00 AM','9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
@@ -1249,30 +1323,91 @@ function fillConfirm() {
   const vc = (settings.code || 'FIRST10').toUpperCase();
   const alreadyUsed = leads.find(l => l.code === code && l.used);
   const promoOk = code && code === vc && !alreadyUsed;
-  const fp = promoOk ? Math.round(bk.svcPrice * 0.9) : bk.svcPrice;
-  document.getElementById('cf-svc').textContent = bk.svcName;
-  document.getElementById('cf-price').textContent = promoOk ? `$${fp} (10% off)` : `$${bk.svcPrice}`;
+  const subtotal = computeSubtotal();
+  const disc = promoOk ? Math.round(subtotal * ((settings.disc || 10) / 100)) : 0;
+  const fp = subtotal - disc;
+  // Items list
+  const list = document.getElementById('cf-items-list');
+  let html = '';
+  bk.items.forEach(it => {
+    html += `<div class="cf-item-row"><div class="cf-item-name"><span class="cf-item-tag">Service</span>${it.name}</div><div class="cf-item-price">$${it.price}</div></div>`;
+  });
+  bk.addons.forEach(it => {
+    html += `<div class="cf-item-row"><div class="cf-item-name"><span class="cf-item-tag">Add-on</span>${it.name}</div><div class="cf-item-price">$${it.price}</div></div>`;
+  });
+  if (promoOk) html += `<div class="cf-item-row"><div class="cf-item-name" style="color:var(--red)"><span class="cf-item-tag">Promo</span>${code} (-${settings.disc || 10}%)</div><div class="cf-item-price" style="color:var(--red)">−$${disc}</div></div>`;
+  list.innerHTML = html;
+  document.getElementById('cf-total').textContent = `$${fp.toLocaleString()}`;
   document.getElementById('cf-date').textContent = bk.dateStr;
   document.getElementById('cf-time').textContent = bk.time;
   document.getElementById('cf-cust').innerHTML = `${document.getElementById('fn').value}<br><span style="color:var(--mut);font-size:12px">${document.getElementById('fe').value}</span>`;
   document.getElementById('cf-veh').textContent = `${document.getElementById('fy').value} ${document.getElementById('fm').value} ${document.getElementById('fmo').value}`;
   const pr = document.getElementById('cf-promo-row');
   if (promoOk) { pr.style.display = 'block'; document.getElementById('cf-promo-code').textContent = code; } else pr.style.display = 'none';
+  const note = document.getElementById('cf-note');
+  const stripe = settings.stripe || {};
+  if (stripe.enabled && stripe.paymentLink) {
+    note.innerHTML = `You'll be redirected to <strong style="color:#fff">Stripe</strong> to complete payment securely.`;
+    document.getElementById('bk-next').textContent = 'Confirm & Pay with Stripe →';
+  } else {
+    note.textContent = "You'll receive a confirmation after we review your booking.";
+    document.getElementById('bk-next').textContent = 'Confirm Booking →';
+  }
   document.getElementById('bk-next').disabled = false;
 }
 function doSubmit() {
   const code = document.getElementById('fc').value.trim().toUpperCase();
   const vc = (settings.code || 'FIRST10').toUpperCase();
   const lead = leads.find(l => l.code === code && !l.used);
-  let fp = bk.svcPrice;
-  if (code === vc && lead) { fp = Math.round(bk.svcPrice * 0.9); lead.used = true; }
-  bookings.push({ id: bookings.length + 1, name: document.getElementById('fn').value, email: document.getElementById('fe').value, phone: document.getElementById('fp').value, make: document.getElementById('fm').value, model: document.getElementById('fmo').value, year: document.getElementById('fy').value, notes: document.getElementById('fno').value, svc: bk.svcName, date: bk.dateStr, time: bk.time, price: fp, promo: code === vc ? code : '', status: 'pending', created: new Date().toLocaleDateString() });
-  persist(); closeBooking(); document.getElementById('success-overlay').classList.add('open');
-  bkStep = 0; bk = { svc: null, svcName: '', svcPrice: 0, date: null, dateStr: '', time: null }; calY = undefined; calMo = undefined;
+  const subtotal = computeSubtotal();
+  let fp = subtotal;
+  if (code === vc && lead) { fp = subtotal - Math.round(subtotal * ((settings.disc || 10) / 100)); lead.used = true; }
+  const svcName = [...bk.items.map(i => i.name), ...bk.addons.map(i => `+ ${i.name}`)].join(', ') || 'Booking';
+  const booking = {
+    id: bookings.length + 1,
+    name: document.getElementById('fn').value,
+    email: document.getElementById('fe').value,
+    phone: document.getElementById('fp').value,
+    make: document.getElementById('fm').value,
+    model: document.getElementById('fmo').value,
+    year: document.getElementById('fy').value,
+    notes: document.getElementById('fno').value,
+    svc: svcName,
+    items: bk.items.slice(),
+    addons: bk.addons.slice(),
+    date: bk.dateStr,
+    time: bk.time,
+    price: fp,
+    promo: code === vc ? code : '',
+    status: 'pending',
+    created: new Date().toLocaleDateString()
+  };
+  bookings.push(booking);
+  persist();
+  // Stripe redirect if configured
+  const stripe = settings.stripe || {};
+  if (stripe.enabled && stripe.paymentLink) {
+    try {
+      const u = new URL(stripe.paymentLink);
+      u.searchParams.set('prefilled_email', booking.email);
+      u.searchParams.set('client_reference_id', `BK${booking.id}`);
+      closeBooking();
+      resetBooking();
+      window.location.href = u.toString();
+      return;
+    } catch (e) { console.warn('Invalid Stripe payment link', e); }
+  }
+  closeBooking();
+  document.getElementById('success-overlay').classList.add('open');
+  resetBooking();
+}
+function resetBooking() {
+  bkStep = 0; bk = { items: [], addons: [], date: null, dateStr: '', time: null }; calY = undefined; calMo = undefined;
   ['fn','fe','fp','fc','fmo','fno'].forEach(id => document.getElementById(id).value = '');
   ['fm','fy'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('slots-grid').style.display = 'none'; document.getElementById('slots-hint').style.display = 'block';
   document.querySelectorAll('.svc-opt').forEach(b => b.classList.remove('sel'));
+  updateTotal();
   updateSteps();
 }
 
@@ -1333,6 +1468,10 @@ function loadSettingsUI() {
   document.getElementById('s-close').value = settings.closeTime || '6:00 PM';
   const soc = settings.social || {};
   ['ig','tk','fb','yt','tw'].forEach(k => { const el = document.getElementById(`soc-${k}-url`); if (el) el.value = soc[k] || ''; });
+  const st = settings.stripe || {};
+  const onEl = document.getElementById('s-stripe-on'); if (onEl) onEl.value = st.enabled ? '1' : '0';
+  const pkEl = document.getElementById('s-stripe-pk'); if (pkEl) pkEl.value = st.publishableKey || '';
+  const lnEl = document.getElementById('s-stripe-link'); if (lnEl) lnEl.value = st.paymentLink || '';
 }
 function saveSettings() {
   settings.name = document.getElementById('s-name').value.trim();
@@ -1348,6 +1487,14 @@ function saveSettings() {
   settings.days = {};
   ['mon','tue','wed','thu','fri','sat','sun'].forEach(k => { settings.days[k] = document.getElementById(`day-${k}`)?.checked ?? false; });
   settings.social = { ig: document.getElementById('soc-ig-url').value.trim(), tk: document.getElementById('soc-tk-url').value.trim(), fb: document.getElementById('soc-fb-url').value.trim(), yt: document.getElementById('soc-yt-url').value.trim(), tw: document.getElementById('soc-tw-url').value.trim() };
+  const onEl = document.getElementById('s-stripe-on');
+  if (onEl) {
+    settings.stripe = {
+      enabled: onEl.value === '1',
+      publishableKey: (document.getElementById('s-stripe-pk')?.value || '').trim(),
+      paymentLink: (document.getElementById('s-stripe-link')?.value || '').trim()
+    };
+  }
   persist(); applySettings();
   const btn = event.target; btn.textContent = '✓ Saved!'; btn.style.background = '#22C55E'; setTimeout(() => { btn.textContent = 'Save Changes'; btn.style.background = ''; }, 2000);
 }
